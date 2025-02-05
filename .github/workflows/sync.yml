@@ -1,0 +1,20 @@
+name: Auto Fork Repository
+
+on:
+  # 可根据需求设置触发条件，这里设置为手动触发
+  workflow_dispatch:
+
+jobs:
+  fork-repo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fork Repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SOURCE_OWNER: "soimort"
+          SOURCE_REPO: "you-get"
+        run: |
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/$SOURCE_OWNER/$SOURCE_REPO/forks"
