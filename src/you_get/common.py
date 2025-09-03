@@ -807,6 +807,8 @@ def url_save(
                     except socket.timeout:
                         pass
                     if not buffer:
+                        if file_size == float('+inf'):  # Prevent infinite downloading
+                            break
                         if is_chunked and received_chunk == range_length:
                             break
                         elif not is_chunked and received == file_size:  # Download finished
@@ -827,9 +829,10 @@ def url_save(
         received, os.path.getsize(temp_filepath), temp_filepath
     )
 
-    if os.access(filepath, os.W_OK):
+    if os.access(filepath, os.W_OK) and file_size != float('inf'):
         # on Windows rename could fail if destination filepath exists
-        os.remove(filepath)
+        # we should simply choose a new name instead of brutal os.remove(filepath)
+        filepath = filepath + " (2)"
     os.rename(temp_filepath, filepath)
 
 

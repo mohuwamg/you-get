@@ -156,7 +156,7 @@ $ you-get https://github.com/soimort/you-get/archive/master.zip
 In order to get the latest ```develop``` branch without messing up the PIP, you can try:
 
 ```
-$ pip install --upgrade git+https://github.com/soimort/you-get@develop
+$ pip install --upgrade --force-reinstall git+https://github.com/soimort/you-get@develop
 ```
 
 ## Getting Started
